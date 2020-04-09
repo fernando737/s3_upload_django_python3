@@ -6,6 +6,7 @@ ports:
 tasks:
   - init: pip3 install -r ./requirements.txt
     command: >
+      cd s3_upload &&
       python3 manage.py migrate &&
       python3 manage.py runserver localhost:8080
 image:
