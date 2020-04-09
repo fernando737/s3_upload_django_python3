@@ -11,4 +11,5 @@ class Index(View):
     def get(self,request):
         return render(request,"upload/index.html",{})
     def post(self, request):
+        return render(request,"upload/index.html",{})
 

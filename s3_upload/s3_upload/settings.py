@@ -119,3 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#AWS CONFIG VARIABLES
+AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID','')
+AWS_SECRET_KEY=os.environ.get('AWS_SECRET_KEY','')
+S3_BUCKET=os.environ.get('S3_BUCKET','')
+
