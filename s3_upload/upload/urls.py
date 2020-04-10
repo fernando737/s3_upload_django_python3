@@ -5,5 +5,5 @@ from . import views
 app_name="upload"
 
 urlpatterns = [
-    path('',views.Index.as_view(), name="Index"),
+    path('',views.Index.as_view(), name="index"),
 ]
