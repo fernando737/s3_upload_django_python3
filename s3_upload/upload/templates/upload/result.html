@@ -2,9 +2,8 @@
 {% load static %}
 {% block title %}Index{% endblock %}
 {% block content %}
-<div class=row>
     <h1>Your data</h1>
     <input type="file" id="file_input" />
     <p>Description: {{description}}</p>
-    <img id="preview" src="{%image-url%}"/>
-</div>
+    <img id="preview" src="image-url"/>
+{% endblock %}

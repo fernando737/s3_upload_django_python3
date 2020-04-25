@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from django.http import JsonResponse
 from django.views import View
 from . import views
 import os
@@ -19,9 +20,8 @@ class Index(View):
 class SignS3(View):
     def get(self,request):
         S3_BUCKET = os.environ.get('S3_BUCKET')
-
-        file_name = request.args.get('file_name')
-        file_type = request.args.get('file_type')
+        file_name = request.GET.get('file_name','')
+        file_type = request.GET.get('file_type','')
 
         s3 = boto3.client('s3')
 
@@ -35,14 +35,11 @@ class SignS3(View):
             ],
             ExpiresIn=3600,
         )
-
-        return json.dumps({
-            'data': presigned_post,
-            'url': 'https//%s.s3.amazonaws.com/%s' % (S3_BUCKET,file_name)
-        })
+        #return render(request,"upload/result.html",{})
+        return JsonResponse({'data': presigned_post,'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, file_name)})
 
 class UploadResult(View):
     def post(self,request):
         description=request.POST['description']
-        image-url=request.POST['image-url']
-        return render(request,"upload/result.html",{"image-url":image-url, "description":description})
+        img_url=request.POST['img-url']
+        return render(request,"upload/result.html",{"image-url":img_url, "description":description})

@@ -2,18 +2,22 @@
 {% load static %}
 {% block title %}Index{% endblock %}
 {% block content %}
-<div class=row>
+<div class="row">
     <h1>Your Image</h1>
-    <input type="file" id="file_input" />
+    <div class="row">
+    <p><input type="file" id="file_input" /><p>
     <p>Please select an image file</p>
-    <img id="preview" src="{% static 'upload/no-image.jpg' %}"/>
-
-    <form method="POST" action="{% url 'upload:index' %}">
+     <form method="POST" action="{% url 'upload:upload_result' %}">
         {% csrf_token %}
-        <input type="hidden" id="image-url" name="image-url" value="{% static 'upload/no-image.jpg' %}">
+        <input type="hidden" id="img_url" name="img_url" value="{% static 'upload/no-image.jpg' %}">
         <input type="text" name="description" placeholder="description">
         <input type="submit" value="Save Image">
     <form>
+    <div>
+        <img id="preview" src="{% static 'upload/no-image.jpg' %}"/>
+    </div>
+   
+    </div>
 </div>
 {% endblock %}
 {% block javascript %}
@@ -50,15 +54,19 @@ function uploadFile(file, s3Data, url){
     var xhr = new XMLHttpRequest();
     xhr.open("POST", s3Data.url);
 
+   
+
     var postData = new FormData();
     for(key in s3Data.fields){
+        alert(key +" "+s3Data.fields[key]);
         postData.append(key, s3Data.fields[key]);
     }
     postData.append('file',file);
-
+    alert("Test");
     xhr.onreadystatechange = function() { 
         if(xhr.readyState === 4){
             if(xhr.status == 200 || xhr.status ===204){
+                
                 document.getElementById("preview").src = url;            
                 document.getElementById("image-url").src = url;
             }
@@ -67,7 +75,7 @@ function uploadFile(file, s3Data, url){
             }
         }
     };
-    xhr.send(PostData)
+    xhr.send(postData)
 }
 </script>
 {% endblock %}
